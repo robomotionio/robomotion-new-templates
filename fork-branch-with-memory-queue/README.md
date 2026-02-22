@@ -4,7 +4,7 @@ The Fork Branch with Memory Queue flow is designed to efficiently screenshot lar
 
 ## Watch the video
 
-👉 https://www.youtube.com/watch?v=QrWmtATwOMo
+👉 [Watch on YouTube](https://www.youtube.com/watch?v=QrWmtATwOMo)
 
 ## How it works
 

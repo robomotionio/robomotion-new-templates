@@ -4,7 +4,7 @@ SSL Watch is a powerful automation designed to keep your domains and SSL certifi
 
 ## Watch the video
 
-👉 https://www.youtube.com/watch?v=G2Cp1nW5Plc
+👉 [Watch on YouTube](https://www.youtube.com/watch?v=G2Cp1nW5Plc)
 
 ## What the automation does
 

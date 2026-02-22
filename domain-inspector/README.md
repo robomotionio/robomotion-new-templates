@@ -4,7 +4,7 @@ Domain Inspector brings real time DNS and SSL intelligence directly into your Ch
 
 ## Watch the video
 
-👉 https://www.youtube.com/watch?v=8kLEIm78rII
+👉 [Watch on YouTube](https://www.youtube.com/watch?v=8kLEIm78rII)
 
 When you ask a question, the AI Agent interprets your request, selects the appropriate monitoring tool, queries live DNS or SSL data, and returns a clean, accurate answer within seconds. No switching tabs and no manual checks.
 
