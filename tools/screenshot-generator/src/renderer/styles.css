@@ -17,19 +17,24 @@ body {
   font-size: 12px;
 }
 
+.react-flow__handle {
+  border: 0 !important;
+}
+
 .react-flow__handle-left {
-  width: 6px;
-  height: 12px;
-  background: #48484f;
-  border-radius: 50%;
+  width: 6px !important;
+  height: 12px !important;
+  background: hsl(240, 6%, 30%) !important;
+  border-radius: 9999px !important;
+  left: -3px !important;
 }
 
 .react-flow__handle-right,
 .react-flow__handle-bottom {
-  width: 8px;
-  height: 8px;
-  background: #48484f;
-  border-radius: 50%;
+  width: 8px !important;
+  height: 8px !important;
+  background: hsl(240, 6%, 30%) !important;
+  border-radius: 9999px !important;
 }
 
 .react-flow__edge-path {
