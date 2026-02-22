@@ -1,21 +1,40 @@
 # Fork Branch with Memory Queue
 
-Fork Branch with Memory Queue demonstrates how to run multiple browser instances in parallel, each pulling work from a shared queue. Powered by Robomotion's Fork Branch node and the Memory Queue package, it teaches two essential patterns for building high throughput automations: parallel execution and shared work distribution.
+The Fork Branch with Memory Queue flow is designed to efficiently screenshot large batches of websites by running multiple browser sessions at the same time. It uses a first in first out Memory Queue to hold website information and a Fork Branch to create parallel workers that process sites independently until the queue is empty.
 
-This template launches 6 browser instances that concurrently process a list of 10 websites, taking screenshots of each. It is a practical starting point for any workflow that needs to divide a batch of tasks across multiple workers.
+## Watch the video
 
-## What Fork Branch with Memory Queue can do
+👉 https://www.youtube.com/watch?v=QrWmtATwOMo
 
-- Create a shared queue of URLs for parallel processing
-- Spawn 6 browser instances that run concurrently
-- Distribute work automatically so each browser picks up the next available URL
-- Take screenshots of each website and save them to your home directory
-- Synchronize all branches before the flow completes
+## How it works
 
-## Behind the scenes
+### 1. Initialize
 
-The flow builds a list of 10 e-commerce websites and pushes them into a Memory Queue. A Fork Branch node spawns 6 parallel branches, each opening its own browser. Each branch dequeues the next available URL, navigates to it, takes a screenshot, and loops back for another. When the queue is empty, the Dequeue node throws an exception. A Catch node handles it by closing the browser and calling WG Done to signal that the branch is finished. The main flow waits until all 6 branches complete before proceeding.
+The flow begins by preparing an array of e-commerce sites. Each item includes the website name, URL, and screenshot file path. This array is passed into a Memory Queue, creating a FIFO structure stored inside the robot's memory. Every parallel worker will pull from this same queue.
 
-## Prerequisites
+### 2. Parallel Processing with Fork Branch
 
-- Install the **Robomotion.MemoryQueue** package from the package manager in Flow Designer
+A Fork Branch determines how many parallel browser sequences run simultaneously. For example, setting it to six launches six browser sessions that work side by side.
+
+Each branch operates independently:
+
+- Opens a browser
+- Dequeues the next website from the Memory Queue
+- Opens the link
+- Takes a screenshot
+- Signals completion with a WG Done node
+
+The Fork Branch waits until all branches have reported completion before continuing, guaranteeing clean synchronization across parallel tasks.
+
+### 3. Exception Handling
+
+When no items remain in the Memory Queue, the Dequeue node throws an exception. An Exception Handler catches this event, closes the browser for that branch, and signals branch completion using WG Done. This ensures the automation ends gracefully without leaving open sessions behind.
+
+## What this flow enables
+
+- High speed screenshot capture for large lists of sites
+- Efficient use of parallel browser sessions
+- Automatic load balancing through FIFO queue distribution
+- Safe shutdown of branches when work is complete
+
+This architectural pattern is ideal for large scale, parallelizable tasks such as monitoring, scraping, or website auditing where each job can be processed independently using shared queued data.
