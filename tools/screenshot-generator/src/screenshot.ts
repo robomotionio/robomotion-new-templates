@@ -78,6 +78,7 @@ function toReactFlowData(flow: ParsedFlow): { nodes: unknown[]; edges: unknown[]
       icon: n.icon,
       commentText: n.commentText ?? '',
       commentColor: n.commentColor,
+      iconPosition: n.iconPosition,
       width: n.dimensions.width,
       height: n.dimensions.height,
     },

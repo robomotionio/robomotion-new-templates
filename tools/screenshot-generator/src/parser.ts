@@ -30,6 +30,8 @@ export interface FlowNode {
   outputs: number;
   /** Lucide icon name from pspec */
   icon: string;
+  /** Icon panel position for label-type nodes */
+  iconPosition?: 'left' | 'right';
 }
 
 export interface FlowEdge {
@@ -385,6 +387,12 @@ function buildFlowNode(
   const commentColorIndex = commentExtra?.colorIndex ?? 0;
   const commentColor = nodeType === 'commentNode' ? (COMMENT_COLORS[commentColorIndex] ?? COMMENT_COLORS[0]) : undefined;
 
+  // Label/Begin → icon on left, GoTo/End → icon on right
+  const LEFT_ICON_NS = new Set(['Core.Flow.Label', 'Core.Flow.Begin']);
+  const iconPosition = nodeType === 'labelNode'
+    ? (LEFT_ICON_NS.has(raw.namespace) ? 'left' as const : 'right' as const)
+    : undefined;
+
   return {
     id: raw.id,
     namespace: raw.namespace,
@@ -399,6 +407,7 @@ function buildFlowNode(
     inputs,
     outputs,
     icon: pspec.icon,
+    iconPosition,
   };
 }
 

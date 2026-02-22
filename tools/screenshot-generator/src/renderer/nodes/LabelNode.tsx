@@ -8,23 +8,30 @@ export interface LabelNodeData {
   inputs: number;
   outputs: number;
   icon: string;
+  iconPosition?: 'left' | 'right';
   [key: string]: unknown;
 }
 
 export function LabelNode({ id, data }: NodeProps) {
-  const { label, color, inputs, outputs, icon } = data as unknown as LabelNodeData;
+  const { label, color, inputs, outputs, icon, iconPosition } = data as unknown as LabelNodeData;
   const inputCount = (inputs as number) ?? 1;
   const outputCount = (outputs as number) || 1;
+  const isLeft = iconPosition === 'left';
+
+  const iconPanel = (
+    <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
+      <LucideIcon name={icon || 'arrow-right'} size={14} color="white" />
+    </div>
+  );
 
   return (
     <div className="node-label-type">
       {inputCount > 0 && (
         <Handle type="target" position={Position.Left} id={`${id}-target-1`} />
       )}
+      {isLeft && iconPanel}
       <div className="node-label">{label}</div>
-      <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
-        <LucideIcon name={icon || 'arrow-right'} size={14} color="white" />
-      </div>
+      {!isLeft && iconPanel}
       {outputCount > 0 && Array.from({ length: outputCount }, (_, i) => (
         <Handle
           key={i}
