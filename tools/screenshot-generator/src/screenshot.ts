@@ -64,7 +64,7 @@ function bundleRenderer(): { js: string; reactFlowCss: string; customCss: string
 /**
  * Convert parsed flow data into React Flow node/edge format.
  */
-function toReactFlowData(flow: ParsedFlow): { nodes: unknown[]; edges: unknown[] } {
+function toReactFlowData(flow: ParsedFlow): { nodes: unknown[]; edges: unknown[]; camera?: { x: number; y: number; zoom: number } } {
   const nodes = flow.nodes.map((n: FlowNode) => ({
     id: n.id,
     type: n.nodeType,
@@ -98,13 +98,44 @@ function toReactFlowData(flow: ParsedFlow): { nodes: unknown[]; edges: unknown[]
     style: { stroke: '#666', strokeWidth: 2 },
   }));
 
-  return { nodes, edges };
+  // Compute camera viewport: center all nodes with appropriate zoom
+  let camera: { x: number; y: number; zoom: number } | undefined;
+  if (flow.cameraPosition && flow.nodes.length > 0) {
+    // Compute bounding box of ALL nodes
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const n of flow.nodes) {
+      minX = Math.min(minX, n.position.x);
+      minY = Math.min(minY, n.position.y);
+      maxX = Math.max(maxX, n.position.x + n.dimensions.width);
+      maxY = Math.max(maxY, n.position.y + n.dimensions.height);
+    }
+
+    const padding = 0.05;
+    const availW = VIEWPORT_WIDTH * (1 - 2 * padding);
+    const availH = VIEWPORT_HEIGHT * (1 - 2 * padding);
+    const flowW = maxX - minX;
+    const flowH = maxY - minY;
+
+    // Use saved zoom if it fits, otherwise scale down to fit
+    const fitZoom = Math.min(availW / flowW, availH / flowH);
+    const zoom = Math.min(flow.cameraPosition.zoom, fitZoom);
+
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+    camera = {
+      x: VIEWPORT_WIDTH / 2 - centerX * zoom,
+      y: VIEWPORT_HEIGHT / 2 - centerY * zoom,
+      zoom,
+    };
+  }
+
+  return { nodes, edges, camera };
 }
 
 /**
  * Generate a complete self-contained HTML string with flow data embedded.
  */
-function generateHtml(flowData: { nodes: unknown[]; edges: unknown[] }): string {
+function generateHtml(flowData: { nodes: unknown[]; edges: unknown[]; camera?: { x: number; y: number; zoom: number } }): string {
   const { js, reactFlowCss, customCss } = bundleRenderer();
 
   return `<!DOCTYPE html>
@@ -128,7 +159,8 @@ html, body, #root {
 <body>
 <div id="root"></div>
 <script>
-window.__FLOW_DATA__ = ${JSON.stringify(flowData)};
+window.__FLOW_DATA__ = ${JSON.stringify({ nodes: flowData.nodes, edges: flowData.edges })};
+window.__CAMERA__ = ${flowData.camera ? JSON.stringify(flowData.camera) : 'null'};
 window.__FLOW_READY__ = false;
 </script>
 <script>${js}</script>

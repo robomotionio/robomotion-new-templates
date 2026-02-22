@@ -36,24 +36,32 @@ declare global {
       nodes: Node[];
       edges: Edge[];
     };
+    __CAMERA__: { x: number; y: number; zoom: number } | null;
     __FLOW_READY__: boolean;
   }
 }
 
 function FlowCanvas() {
   const flowData = window.__FLOW_DATA__;
+  const camera = window.__CAMERA__;
   const [nodes, , onNodesChange] = useNodesState(flowData?.nodes ?? []);
   const [edges, , onEdgesChange] = useEdgesState(flowData?.edges ?? []);
-  const { fitView } = useReactFlow();
+  const { fitView, setViewport } = useReactFlow();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      fitView({ padding: 0.08 }).then(() => {
-        window.__FLOW_READY__ = true;
-      });
+      if (camera) {
+        setViewport(camera, { duration: 0 }).then(() => {
+          window.__FLOW_READY__ = true;
+        });
+      } else {
+        fitView({ padding: 0.08 }).then(() => {
+          window.__FLOW_READY__ = true;
+        });
+      }
     }, 200);
     return () => clearTimeout(timer);
-  }, [fitView]);
+  }, [fitView, setViewport]);
 
   return (
     <ReactFlow
