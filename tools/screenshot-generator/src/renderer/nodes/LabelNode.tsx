@@ -20,7 +20,7 @@ export function LabelNode({ id, data }: NodeProps) {
 
   const iconPanel = (
     <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
-      <LucideIcon name={icon || 'arrow-right'} size={14} color="white" />
+      <LucideIcon name={icon || 'arrow-right'} size={14} color="#18181b" />
     </div>
   );
 
@@ -29,9 +29,11 @@ export function LabelNode({ id, data }: NodeProps) {
       {inputCount > 0 && (
         <Handle type="target" position={Position.Left} id={`${id}-target-1`} />
       )}
-      {isLeft && iconPanel}
-      <div className="node-label">{label}</div>
-      {!isLeft && iconPanel}
+      <div className="node-inner">
+        {isLeft && iconPanel}
+        <div className="node-label">{label}</div>
+        {!isLeft && iconPanel}
+      </div>
       {outputCount > 0 && Array.from({ length: outputCount }, (_, i) => (
         <Handle
           key={i}

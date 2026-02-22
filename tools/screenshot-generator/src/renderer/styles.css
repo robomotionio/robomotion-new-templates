@@ -8,7 +8,7 @@
 
 body {
   background: hsl(240, 6%, 14%);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow: hidden;
 }
 
@@ -44,11 +44,24 @@ body {
   width: 200px;
   height: 47px;
   background: #18181b;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
   overflow: hidden;
   color: white;
   font-size: 11px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 1px;
+}
+
+.node-default .node-inner {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  background: #18181b;
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
 }
 
 .node-default .node-icon-panel {
@@ -57,8 +70,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #18181b;
-  border-radius: 5px 0 0 5px;
+  border-radius: 6px 2px 2px 6px;
+  margin: 2px 0 2px 2px;
 }
 
 .node-default .node-content {
@@ -102,6 +115,18 @@ body {
   font-size: 12px;
   font-weight: 500;
   overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 1px;
+}
+
+.node-inject .node-inner {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  background: #18181b;
+  border-radius: 19px 7px 7px 19px;
+  overflow: hidden;
 }
 
 .node-inject .node-icon-panel {
@@ -111,7 +136,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 18px 2px 2px 18px;
-  border: 1px solid #18181b;
+  margin: 2px 0 2px 2px;
 }
 
 .node-inject .node-label {
@@ -136,6 +161,18 @@ body {
   font-size: 12px;
   font-weight: 500;
   overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 1px;
+}
+
+.node-ending .node-inner {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  background: #18181b;
+  border-radius: 7px 19px 19px 7px;
+  overflow: hidden;
 }
 
 .node-ending .node-icon-panel {
@@ -145,7 +182,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 2px 18px 18px 2px;
-  border: 1px solid #18181b;
+  margin: 2px 2px 2px 0;
 }
 
 .node-ending .node-label {
@@ -165,7 +202,7 @@ body {
   justify-content: center;
   width: 80px;
   min-height: 74px;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #18181b;
   border: none;
   color: white;
@@ -174,6 +211,7 @@ body {
   text-align: center;
   padding: 8px 4px;
   gap: 4px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .node-box .node-box-icon {
@@ -203,6 +241,18 @@ body {
   font-size: 12px;
   font-weight: 500;
   overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 1px;
+}
+
+.node-label-type .node-inner {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  background: #18181b;
+  border-radius: 7px;
+  overflow: hidden;
 }
 
 .node-label-type .node-icon-panel {
@@ -211,15 +261,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #18181b;
+  margin: 2px;
 }
 
 .node-label-type .node-icon-panel:first-child {
   border-radius: 6px 2px 2px 6px;
+  margin: 2px 0 2px 2px;
 }
 
 .node-label-type .node-icon-panel:last-of-type:not(:first-child) {
   border-radius: 2px 6px 6px 2px;
+  margin: 2px 2px 2px 0;
 }
 
 .node-label-type .node-label {

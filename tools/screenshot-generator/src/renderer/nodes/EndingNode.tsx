@@ -15,9 +15,11 @@ export function EndingNode({ id, data }: NodeProps) {
   return (
     <div className="node-ending">
       <Handle type="target" position={Position.Left} id={`${id}-target-1`} />
-      <div className="node-label">{label}</div>
-      <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
-        <LucideIcon name={icon || 'circle-stop'} size={14} color="white" />
+      <div className="node-inner">
+        <div className="node-label">{label}</div>
+        <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
+          <LucideIcon name={icon || 'circle-stop'} size={14} color="#18181b" />
+        </div>
       </div>
     </div>
   );

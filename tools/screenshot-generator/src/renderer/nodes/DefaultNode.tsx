@@ -22,12 +22,14 @@ export function DefaultNode({ id, data }: NodeProps) {
       {inputCount > 0 && (
         <Handle type="target" position={Position.Left} id={`${id}-target-1`} />
       )}
-      <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
-        <LucideIcon name={icon || 'package'} size={16} color="white" />
-      </div>
-      <div className="node-content">
-        <div className="node-subtitle">{subtitle}</div>
-        <div className="node-label">{label}</div>
+      <div className="node-inner">
+        <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
+          <LucideIcon name={icon || 'package'} size={16} color="#18181b" />
+        </div>
+        <div className="node-content">
+          <div className="node-subtitle">{subtitle}</div>
+          <div className="node-label">{label}</div>
+        </div>
       </div>
       {outputCount > 0 && Array.from({ length: outputCount }, (_, i) => (
         <Handle

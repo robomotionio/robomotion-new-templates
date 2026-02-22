@@ -16,10 +16,12 @@ export function InjectNode({ id, data }: NodeProps) {
 
   return (
     <div className="node-inject">
-      <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
-        <LucideIcon name={icon || 'play'} size={14} color="white" />
+      <div className="node-inner">
+        <div className="node-icon-panel" style={{ backgroundColor: color + 'D9' }}>
+          <LucideIcon name={icon || 'play'} size={14} color="#18181b" />
+        </div>
+        <div className="node-label">{label}</div>
       </div>
-      <div className="node-label">{label}</div>
       {Array.from({ length: outputCount }, (_, i) => (
         <Handle
           key={i}
